@@ -9,15 +9,20 @@
         <link rel="stylesheet" href="{{ url_for('static', filename='css/main_page.css')}}">
     </head>
     <body>
+        <div class="navbar">
+            <a href="#customers">Customers</a>
+            <a href="#items">Items</a>
+            <a href="#services">Services</a>
+        </div>
+        
         <div class="paper">
             <h2>Table with Paper Effect</h2>
             <table>
                 <thead>
                     <tr>
-                        <th>Column 1</th>
-                        <th>Column 2</th>
-                        <th>Column 3</th>
-                        <th>Column 4</th>
+                        <th>Services</th>
+                        <th>Amount</th>
+                        <th>Quantity</th>
                     </tr>
                 </thead>
             </table>
