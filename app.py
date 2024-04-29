@@ -3,9 +3,12 @@ from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///customers.db'  # SQLite database
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///customers.db'
+
+# Initialize the SQLAlchemy object
 db = SQLAlchemy(app)
 
+# Define the Customer model
 class Customer(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     first_name = db.Column(db.String(100), nullable=True)
@@ -13,11 +16,17 @@ class Customer(db.Model):
     email_address = db.Column(db.String(100), nullable=True)
     address = db.Column(db.String(100), nullable=False)
     phone_number = db.Column(db.String(20), nullable=True)
-    
 
     def __repr__(self):
-        return '<Customer %r>' % self.name
+        return '<Customer %r>' % self.id
 
+# Create the database tables
+with app.app_context():
+    db.create_all()
+    
+    
+    
+    
 @app.route('/')
 def main_page():
     return render_template('main_page.html')
@@ -31,10 +40,25 @@ def customers():
 def update_customer(id):
     customer = Customer.query.get_or_404(id)
     if request.method == 'POST':
-        new_name = request.form['new_name']
-        if new_name:
-            customer.name = new_name
-            db.session.commit()
+        new_first_name = request.form['new_first_name']
+        new_last_name = request.form['new_last_name']
+        new_email_address = request.form['new_email_address']
+        new_address = request.form['new_address']
+        new_phone_number = request.form['new_phone_number']
+
+        # Update only if the field is not empty
+        if new_first_name:
+            customer.first_name = new_first_name
+        if new_last_name:
+            customer.last_name = new_last_name
+        if new_email_address:
+            customer.email_address = new_email_address
+        if new_address:
+            customer.address = new_address
+        if new_phone_number:
+            customer.phone_number = new_phone_number
+
+        db.session.commit()
     return redirect(url_for('customers'))
 
 
