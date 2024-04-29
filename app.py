@@ -21,6 +21,16 @@ class Customer(db.Model):
 with app.app_context():
     db.create_all()
 
+class Items(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    first_name = db.Column(db.String(100), nullable=False)
+    
+
+
+# Create the database tables
+with app.app_context():
+    db.create_all()
+
 @app.route('/')
 def main_page():
     return render_template('main_page.html')
