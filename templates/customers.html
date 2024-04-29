@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customers</title>
+</head>
+<body>
+    <header>
+        <h1>List of Customers</h1>
+    </header>
+
+    <main>
+        <ul>
+            {% for customer in customers %}
+            <li>{{ customer.name }}</li>
+            <form action="{{ url_for('update_customer', id=customer.id) }}" method="post">
+                <input type="text" name="new_name" placeholder="Enter new name">
+                <button type="submit">Update</button>
+            </form>
+            {% endfor %}
+        </ul>
+    </main>
+
+    <footer>
+        <!-- Footer content goes here -->
+    </footer>
+</body>
+</html>
