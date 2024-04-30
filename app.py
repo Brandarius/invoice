@@ -21,15 +21,6 @@ class Customer(db.Model):
 with app.app_context():
     db.create_all()
 
-class Items(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    first_name = db.Column(db.String(100), nullable=False)
-    
-
-
-# Create the database tables
-with app.app_context():
-    db.create_all()
 
 @app.route('/')
 def main_page():
@@ -55,5 +46,13 @@ def add_customer():
 @app.route('/inventory')
 def add_item():
     return render_template('inventory.html')
+
+@app.route('/delete_customer/<int:customer_id>', methods=['POST'])
+def delete_customer(customer_id):
+    global customers
+    customers = [customer for customer in customers if customer['id'] != customer_id]
+    return redirect(url_for('/customers'))
+
+
 if __name__ == '__main__':
     app.run(debug=True)

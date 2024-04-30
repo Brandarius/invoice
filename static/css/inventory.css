@@ -17,7 +17,3 @@ body {
     margin: 20px auto; /* Centering the paper */
     max-width: 1000px; /* Maximum width of the paper */
 }
-.customer-list-container {
-    max-height: 1000px; /* Adjust this value as needed */
-    overflow-y: auto;
-}
