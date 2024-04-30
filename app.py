@@ -43,16 +43,20 @@ def add_customer():
     db.session.add(new_customer)
     db.session.commit()
     return redirect(url_for('list_customers'))
+
+
+
 @app.route('/inventory')
 def add_item():
     return render_template('inventory.html')
 
 @app.route('/delete_customer/<int:customer_id>', methods=['POST'])
 def delete_customer(customer_id):
-    global customers
-    customers = [customer for customer in customers if customer['id'] != customer_id]
-    return redirect(url_for('/customers'))
-
+    customer = Customer.query.get_or_404(customer_id)
+    # Assuming you're using SQLAlchemy, you can delete the customer directly from the database
+    db.session.delete(customer)
+    db.session.commit()
+    return redirect(url_for('list_customers'))
 
 if __name__ == '__main__':
     app.run(debug=True)
