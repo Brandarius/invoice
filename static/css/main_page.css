@@ -12,10 +12,18 @@ th, td {
     margin: 0 auto;
 }
 body {
-    background-color: #f2f2f2; /* Light gray background */
+    background-color: grey; /* Light gray background */
     font-family: Arial, sans-serif;
 }
 .paper {
+    background-color: #fff; /* White background */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Shadow effect */
+    border-radius: 8px; /* Rounded corners */
+    padding: 20px; /* Padding around the content */
+    margin: 20px auto; /* Centering the paper */
+    max-width: 1000px; /* Maximum width of the paper */
+}
+#nav {
     background-color: #fff; /* White background */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Shadow effect */
     border-radius: 8px; /* Rounded corners */

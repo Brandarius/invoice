@@ -52,6 +52,8 @@ def add_customer():
     db.session.add(new_customer)
     db.session.commit()
     return redirect(url_for('list_customers'))
-
+@app.route('/inventory')
+def add_item():
+    return render_template('inventory.html')
 if __name__ == '__main__':
     app.run(debug=True)
