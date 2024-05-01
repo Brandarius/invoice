@@ -48,9 +48,26 @@ def delete_customer(customer_id):
 
 
 #The Main Page with the invoice creation that hasnt been set up yet
-@app.route('/')
+@app.route('/', methods=['GET', 'POST'])
 def main_page():
-    return render_template('main_page.html')
+    if request.method == 'POST':
+        # Handle form submission here
+        copy_firstname = request.form['copy_firstname']
+        copy_lastname = request.form['copy_lastname']
+        copy_email_address = request.form['copy_email_address']
+        copy_address = request.form['copy_address']
+        copy_phone_number = request.form['copy_phone_number']
+        
+        # You can do further processing with the copied customer information if needed
+        # For now, let's just render the main_page.html template again with the copied information
+        return render_template('main_page.html', 
+                               copy_firstname=copy_firstname,
+                               copy_lastname=copy_lastname,
+                               copy_email_address=copy_email_address,
+                               copy_address=copy_address,
+                               copy_phone_number=copy_phone_number)
+    else:
+        return render_template('main_page.html')
 
 
 #Inventory page without the add item function yet

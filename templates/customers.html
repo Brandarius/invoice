@@ -44,6 +44,14 @@
                 {% for customer in customers %}
                 <li class="customer_list">
                     <p>Name: {{ customer.first_name }} {{ customer.last_name }} Email: {{ customer.email_address }} Address: {{ customer.address }} Phone Number: {{ customer.phone_number }}</p>
+                    <form action="{{ url_for('main_page') }}" method="post" style="display: inline;">
+                        <input type="hidden" name="copy_firstname" value="{{ customer.first_name }}">
+                        <input type="hidden" name="copy_lastname" value="{{ customer.last_name }}">
+                        <input type="hidden" name="copy_email_address" value="{{ customer.email_address }}">
+                        <input type="hidden" name="copy_address" value="{{ customer.address }}">
+                        <input type="hidden" name="copy_phone_number" value="{{ customer.phone_number }}">
+                        <button type="submit">Copy</button>
+                    </form>
                     <form action="{{ url_for('delete_customer', customer_id=customer.id) }}" method="post" style="display: inline;">
                         <button type="submit">Delete</button>
                     </form>
