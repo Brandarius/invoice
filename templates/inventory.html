@@ -3,10 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Customers</title>
+    <title>Inventory</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/inventory.css')}}">
 </head>
 <body>
-   <h2>Inventory</h2>
+    <div class="navbar">
+        <button id="nav"><a href='/'>Invoice</a></button>
+        <button id="nav"><a href='customers'>Customers</a></button>
+    </div>
+    <div class="paper">
+        <header>
+            <h1>Inventory</h1>
+        </header>
+
+        <main>
+            <h2>Add New Item</h2>
+            <form action="{{ url_for('add_item') }}" method="post">
+                <label for="item_name">Name:</label>
+                <input type="text" id="item_name" name="item_name" placeholder="Enter item name">
+                
+                <label for="item_quantity">Quantity:</label>
+                <input type="text" id="item_quantity" name="item_quantity" placeholder="Enter item quantity"><br><br>
+
+                <button type="submit">Add Item</button>
+            </form>
+            <div class="inventory-list-container">
+                <h2>Inventory List</h2>
+                <ul>
+                    {% for item in inventory_items %}
+                        <li class="inventory_list">{{ item.name }} - Quantity: {{ item.quantity }}
+                        <form action="{{ url_for('delete_item', item_id=item.id) }}" method="post" style="display: inline;">
+                            <button type="submit">Delete</button>
+                        </form>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </main>
+
+        <footer>
+            <!-- Add any additional content or navigation links here -->
+        </footer>
+    </div>
 </body>
 </html>
