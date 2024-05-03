@@ -67,7 +67,7 @@ def search_customers():
 @app.route('/', methods=['GET', 'POST'])
 def main_page():
     if request.method == 'POST':
-        # Handle form submission here
+        #copy/paste form customer name and information on main_page
         copy_firstname = request.form['copy_firstname']
         copy_lastname = request.form['copy_lastname']
         copy_email_address = request.form['copy_email_address']
@@ -83,7 +83,6 @@ def main_page():
     else:
             return render_template('main_page.html')
 
-#Inventory page without the add item function yet
 @app.route('/inventory')
 def inventory_list():
     inventory_items = InventoryItem.query.all()
@@ -101,7 +100,6 @@ def add_item():
         db.session.commit()
         return redirect(url_for('inventory_list'))
     else:
-        # Handle other HTTP methods (e.g., GET) if needed
         return "Method Not Allowed", 405
     
 @app.route('/delete_item/<int:item_id>', methods=['POST'])
