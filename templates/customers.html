@@ -38,8 +38,13 @@
         </form>
 
         <h2>List of Customers</h2>
-        <!-- Scrollable area for the list of customers -->
         <div class="customer-list-container">
+            <form action="/search_customers" method="GET">
+                <label for="search_lastname">Search by Last Name:</label><br>
+                <input type="text" id="search_lastname" name="search_lastname" placeholder="Search..">
+                <input type="submit" value="Search">
+                <a href="/customers"><button type="button">Cancel Search</button></a>
+            </form>
             <ol>
                 {% for customer in customers %}
                 <li class="customer_list">

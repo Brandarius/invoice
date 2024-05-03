@@ -55,6 +55,13 @@ def delete_customer(customer_id):
     db.session.commit()
     return redirect(url_for('list_customers'))
 
+#Search for customers
+@app.route('/search_customers')
+def search_customers():
+    search_lastname = request.args.get('search_lastname', '')
+    customers = Customer.query.filter_by(last_name=search_lastname).all()
+    return render_template('customers.html', customers=customers)
+
 
 #The Main Page with the invoice creation that hasnt been set up yet
 @app.route('/', methods=['GET', 'POST'])
@@ -67,8 +74,6 @@ def main_page():
         copy_address = request.form['copy_address']
         copy_phone_number = request.form['copy_phone_number']
         
-        # You can do further processing with the copied customer information if needed
-        # For now, let's just render the main_page.html template again with the copied information
         return render_template('main_page.html', 
                                copy_firstname=copy_firstname,
                                copy_lastname=copy_lastname,
@@ -76,8 +81,7 @@ def main_page():
                                copy_address=copy_address,
                                copy_phone_number=copy_phone_number)
     else:
-        return render_template('main_page.html')
-
+            return render_template('main_page.html')
 
 #Inventory page without the add item function yet
 @app.route('/inventory')
