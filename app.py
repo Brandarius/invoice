@@ -4,6 +4,7 @@ from flask_sqlalchemy import SQLAlchemy
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///customers.db'
 app.config['SQLALCHEMY_BINDS'] = {'inventory': 'sqlite:///inventory.db'}
+app.config['SQLALCHEMY_BINDS'] = {'invoice_list': 'sqlite:///invoice_list.db'}
 db = SQLAlchemy(app)
 
 #Database Creation and Bull Crap 
@@ -23,6 +24,13 @@ class InventoryItem(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
     quantity = db.Column(db.Integer, nullable=False)
+    
+#Going to be the invoice list on the main page on the left of the new invoice creation... has yet to be implemented as a scrollable area
+class Invoice_List(db.Model):
+    __bind_key__ = 'invoice_list'
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100), nullable=False)
+    amount = db.Column(db.Integer, nullable=False)
 
 # Database creation
 with app.app_context():
