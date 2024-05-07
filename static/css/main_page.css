@@ -31,3 +31,15 @@ body {
     margin: 20px auto; /* Centering the paper */
     max-width: 1000px; /* Maximum width of the paper */
 }
+.invoice_list {
+    background-color: lightgrey; /* White background */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Shadow effect */
+    border-radius: 8px; /* Rounded corners */
+    padding: 20px; /* Padding around the content */
+    margin: 20px auto; /* Centering the paper */
+    max-width: 1000px; /* Maximum width of the paper */
+}
+.invoice-container {
+    max-height: 1000px; /* Adjust this value as needed */
+    overflow-y: auto;
+}

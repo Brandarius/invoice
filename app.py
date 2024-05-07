@@ -3,8 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///customers.db'
-app.config['SQLALCHEMY_BINDS'] = {'inventory': 'sqlite:///inventory.db'}
-app.config['SQLALCHEMY_BINDS'] = {'invoice_list': 'sqlite:///invoice_list.db'}
+app.config['SQLALCHEMY_BINDS'] = {'inventory': 'sqlite:///inventory.db', 'invoice_list': 'sqlite:///invoice_list.db'}
 db = SQLAlchemy(app)
 
 #Database Creation and Bull Crap 
@@ -70,26 +69,39 @@ def search_customers():
     customers = Customer.query.filter_by(last_name=search_lastname).all()
     return render_template('customers.html', customers=customers)
 
+@app.route('/add_invoice_form')
+def add_invoice_form():
+    return render_template('main_page.html')
 
-#The Main Page with the invoice creation that hasnt been set up yet
+# Define route to add invoice to the database
+@app.route('/add_invoice', methods=['POST'])
+def add_invoice():
+    if request.method == 'POST':
+        name = request.form['name']
+        amount = request.form['amount']
+        new_invoice = Invoice_List(name=name, amount=amount)
+        db.session.add(new_invoice)
+        db.session.commit()
+        return redirect(url_for('add_invoice_form'))
+
+
+
 @app.route('/', methods=['GET', 'POST'])
 def main_page():
-    if request.method == 'POST':
-        #copy/paste form customer name and information on main_page
-        copy_firstname = request.form['copy_firstname']
-        copy_lastname = request.form['copy_lastname']
-        copy_email_address = request.form['copy_email_address']
-        copy_address = request.form['copy_address']
-        copy_phone_number = request.form['copy_phone_number']
+        # Fetch all invoices from the database
+        invoices = Invoice_List.query.all()
         
-        return render_template('main_page.html', 
-                               copy_firstname=copy_firstname,
-                               copy_lastname=copy_lastname,
-                               copy_email_address=copy_email_address,
-                               copy_address=copy_address,
-                               copy_phone_number=copy_phone_number)
-    else:
-            return render_template('main_page.html')
+        # Render the main page template with invoices
+        return render_template('main_page.html', invoices=invoices)
+        
+@app.route('/delete_invoice/<int:invoice_id>', methods=['POST'])
+def delete_invoice(invoice_id):
+    invoice = Invoice_List.query.get_or_404(invoice_id)
+    db.session.delete(invoice)
+    db.session.commit()
+    return redirect('/')
+
+
 
 @app.route('/inventory')
 def inventory_list():
