@@ -39,11 +39,29 @@
         
         <table>
             <tr>
-            <th>Service/Item Sold</th>
-            <th>Amount</th>
-            <th>Quantity</th>
-            <th>Price</th>
-          </tr>
+                <th>Service/Item Sold</th>
+                <th>Amount</th>
+                <th>Quantity</th>
+                <th>Total Price for Row</th>
+            </tr>
+            <tr>
+                <th><form><input type="text" required></form></th>
+                <th><form><input type="number" required></form></th>
+                <th><form><input type="number" required></form></th>
+                <th><form><input type="number" required></form></th>
+            </tr>
+            <tr>
+                <th><form><input type="text"></form></th>
+                <th><form><input type="number"></form></th>
+                <th><form><input type="number"></form></th>
+                <th><form><input type="number"></form></th>
+            </tr>
+            <tr>
+                <th><form><input type="text"></form></th>
+                <th><form><input type="number"></form></th>
+                <th><form><input type="number"></form></th>
+                <th><form><input type="number"></form></th>
+            </tr>
         </table>
     </div>
     <h2>Invoices</h2>
@@ -52,7 +70,6 @@
         <li class="invoice_list">{{ invoice.name }} - Amount: {{ invoice.amount }}
         <form action="/delete_invoice/{{ invoice.id }}" method="post"><button type="submit">Delete</button></form>
         </li>
-        
         {% endfor %}
     </div>
 </body>

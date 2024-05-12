@@ -1,6 +1,8 @@
 from flask import Flask, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 
+
+
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///customers.db'
 app.config['SQLALCHEMY_BINDS'] = {'inventory': 'sqlite:///inventory.db', 'invoice_list': 'sqlite:///invoice_list.db'}
@@ -22,7 +24,7 @@ class InventoryItem(db.Model):
     __bind_key__ = 'inventory'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
-    quantity = db.Column(db.Integer, nullable=False)
+    quantity = db.Column(db.Integer, nullable=True)
     
 #Going to be the invoice list on the main page on the left of the new invoice creation... has yet to be implemented as a scrollable area
 class Invoice_List(db.Model):
@@ -102,7 +104,6 @@ def delete_invoice(invoice_id):
     return redirect('/')
 
 
-
 @app.route('/inventory')
 def inventory_list():
     inventory_items = InventoryItem.query.all()
@@ -114,8 +115,10 @@ def add_item():
     if request.method == 'POST':
         new_item = InventoryItem(
             name=request.form['item_name'],
-            quantity=int(request.form['item_quantity'])
+            quantity=int(request.form['item_quantity']),
         )
+            
+        
         db.session.add(new_item)
         db.session.commit()
         return redirect(url_for('inventory_list'))
@@ -134,3 +137,4 @@ def delete_item(item_id):
 
 if __name__ == '__main__':
     app.run(debug=True)
+    Isaac = 'YourMom'
