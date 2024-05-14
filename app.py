@@ -95,7 +95,17 @@ def main_page():
         
         # Render the main page template with invoices
         return render_template('main_page.html', invoices=invoices)
+    
+@app.route('/invoice_list', methods=['GET', 'POST'])
+def invoice_list():
+    invoices = Invoice_List.query.all()
         
+
+    return render_template('invoice_list.html')
+    
+    
+    
+    
 @app.route('/delete_invoice/<int:invoice_id>', methods=['POST'])
 def delete_invoice(invoice_id):
     invoice = Invoice_List.query.get_or_404(invoice_id)
