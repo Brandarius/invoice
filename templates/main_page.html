@@ -10,10 +10,8 @@
     </head>
     <body>
         <div class="navbar">
-        <a href="customers"><button id="nav">Customers</button></a>
-        <a href='inventory'><button id="nav">Inventory</button></a>
         <a href='invoice_list'><button id="nav">Created Invoices</button></a>
-        
+        </div>
         <div class="paper"> 
             <h2>Invoice</h2>
         <form action="/" method="POST">
@@ -36,7 +34,14 @@
         </form>
         
         <h2>Add Invoice</h2>
-        
+        <h2>Add Invoice</h2>
+    <form action="/" method="POST">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required><br><br>
+        <label for="amount">Amount:</label>
+        <input type="number" id="amount" name="amount" required><br><br>
+        <input type="submit" value="Add Invoice">
+    </form>
         <table>
             <tr>
                 <th>Service/Item Sold</th>
@@ -62,15 +67,31 @@
                 <th><form style="margin:0; padding:0;"><input type="number" style="width:100%; box-sizing:border-box;"></form></th>
                 <th><form style="margin:0; padding:0;"><input type="number" style="width:100%; box-sizing:border-box;"></form></th>
             </tr>
+            <tr>
+                <th><form style="margin:0; padding:0;"><input type="text" style="width:100%; box-sizing:border-box;"></form></th>
+                <th><form style="margin:0; padding:0;"><input type="number" style="width:100%; box-sizing:border-box;"></form></th>
+                <th><form style="margin:0; padding:0;"><input type="number" style="width:100%; box-sizing:border-box;"></form></th>
+                <th><form style="margin:0; padding:0;"><input type="number" style="width:100%; box-sizing:border-box;"></form></th>
+            </tr>
+            <tr>
+                <th><form style="margin:0; padding:0;"><input type="text" style="width:100%; box-sizing:border-box;"></form></th>
+                <th><form style="margin:0; padding:0;"><input type="number" style="width:100%; box-sizing:border-box;"></form></th>
+                <th><form style="margin:0; padding:0;"><input type="number" style="width:100%; box-sizing:border-box;"></form></th>
+                <th><form style="margin:0; padding:0;"><input type="number" style="width:100%; box-sizing:border-box;"></form></th>
+            </tr>
+            <tr>
+                <th><form style="margin:0; padding:0;"><input type="text" style="width:100%; box-sizing:border-box;"></form></th>
+                <th><form style="margin:0; padding:0;"><input type="number" style="width:100%; box-sizing:border-box;"></form></th>
+                <th><form style="margin:0; padding:0;"><input type="number" style="width:100%; box-sizing:border-box;"></form></th>
+                <th><form style="margin:0; padding:0;"><input type="number" style="width:100%; box-sizing:border-box;"></form></th>
+            </tr>
+            <tr>
+                <th><form style="margin:0; padding:0;"><input type="text" style="width:100%; box-sizing:border-box;"></form></th>
+                <th><form style="margin:0; padding:0;"><input type="number" style="width:100%; box-sizing:border-box;"></form></th>
+                <th><form style="margin:0; padding:0;"><input type="number" style="width:100%; box-sizing:border-box;"></form></th>
+                <th><form style="margin:0; padding:0;"><input type="number" style="width:100%; box-sizing:border-box;"></form></th>
+            </tr>
         </table>
-    </div>
-    <h2>Invoices</h2>
-    <div class="invoice_list">
-        {% for invoice in invoices %}
-        <li class="invoice_list">{{ invoice.name }} - Amount: {{ invoice.amount }}
-        <form action="/delete_invoice/{{ invoice.id }}" method="post"><button type="submit">Delete</button></form>
-        </li>
-        {% endfor %}
     </div>
 </body>
 </html>

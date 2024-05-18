@@ -10,18 +10,16 @@
     </head>
     <body>
         <div class="navbar">
-            <a href='/'><button id="nav">Invoice</button></a>
-            <a href='inventory'><button id="nav">Inventory</button></a>
-            <a href='customers'><button id="nav">Customers</button></a>
+            <a href='/'><button id="nav">Create New Invoice</button></a>
         </div>
-    <div class="paper"
+    <div class="paper">
         <h2>Invoices</h2>
         <div class="invoice_list">
-            {% for invoice in invoices %}
-                <li class="invoice_list">{{ invoice.name }} - Amount: {{ invoice.amount }}
-                <form action="/delete_invoice/{{ invoice.id }}" method="post"><button type="submit">Delete</button></form>
-                </li>
-            {% endfor %}
+            <ul>
+                {% for invoice in invoices %}
+                <li>{{ invoice.name }}: {{ invoice.amount }}</li>
+                {% endfor %}
+            </ul>
         </div>
     </div>
 
