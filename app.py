@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
+from datetime import datetime
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///customers.db'
@@ -12,9 +13,10 @@ class Invoice_List(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
     amount = db.Column(db.Integer, nullable=False)
-
-# Database creation
+    date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    
 with app.app_context():
+    db.drop_all()
     db.create_all()
 
 @app.route('/', methods=['GET', 'POST'])
@@ -23,10 +25,12 @@ def main_page():
         name = request.form['name']
         amount = request.form['amount']
         address = request.form['address']
-        new_invoice = Invoice_List(name=name, amount=amount)
+        date_str = request.form['date']
+        date = datetime.strptime(date_str, '%Y-%m-%dT%H:%M')
+        new_invoice = Invoice_List(name=name, amount=amount, date=date)
         db.session.add(new_invoice)
         db.session.commit()
- 
+        return redirect(url_for('invoice_list'))
     return render_template('main_page.html')
 
 @app.route('/invoice_list')
