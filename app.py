@@ -22,11 +22,11 @@ def main_page():
     if request.method == 'POST':
         name = request.form['name']
         amount = request.form['amount']
+        address = request.form['address']
         new_invoice = Invoice_List(name=name, amount=amount)
         db.session.add(new_invoice)
         db.session.commit()
-        return redirect(url_for('main_page'))
-    
+ 
     return render_template('main_page.html')
 
 @app.route('/invoice_list')
