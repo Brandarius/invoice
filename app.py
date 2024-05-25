@@ -16,7 +16,7 @@ class Invoice_List(db.Model):
     date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     
 with app.app_context():
-    db.drop_all()
+    #db.drop_all()
     db.create_all()
 
 @app.route('/', methods=['GET', 'POST'])
