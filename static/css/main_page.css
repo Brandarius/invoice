@@ -43,3 +43,17 @@ body {
     max-height: 1000px; /* Adjust this value as needed */
     overflow-y: auto;
 }
+#total_amount {
+    text-align: right;
+}
+@media print {
+    /* Hide the navbar and any buttons */
+    .navbar,
+    button {
+        display: none;
+    }
+}
+#date_box {
+    text-align: right;
+    padding-top: 0%;
+}

@@ -7,37 +7,46 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main_page.css') }}">
+    <script src="{{ url_for('static', filename='js/invoice.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/print.js') }}"></script>
 </head>
 <body>
     <div class="navbar">
-        <a href='invoice_list'><button id="nav">Created Invoices</button></a>
+        <a href="{{ url_for('invoice_list') }}"><button id="nav">Created Invoices</button></a>
     </div>
-    <div class="paper"> 
-        <h2>Add Invoice</h2>
+    <div class="paper">
         <form action="/" method="POST">
+            <h2><input type="text" placeholder="Company Name" style="width: 110px;"></h2><div id="date_box"><input type="datetime-local" id="date" name="date" required><br><br></div>
+            
             <label for="name">Name:</label>
             <input type="text" id="name" name="name" required>
             <label for="address">Address:</label>
-            <input type="text" id="address" name="address">
-            <label for="date">Date:</label>
-            <input type="datetime-local" id="date" name="date" required><br><br>
+            <input type="text" id="address" name="address"><br><br>
+            <div id=""></div>
+
+          
             <table>
                 <tr>
                     <th>Service/Item Sold</th>
                     <th>Amount</th>
                     <th>Quantity</th>
+                    <th>Price</th>
                 </tr>
                 {% for i in range(8) %}
                 <tr>
-                    <td><input type="text" name="item_{{ i }}" style="width:100%; box-sizing:border-box;"></td>
-                    <td><input type="number" name="amount_{{ i }}" style="width:100%; box-sizing:border-box;"></td>
-                    <td><input type="number" name="quantity_{{ i }}" style="width:100%; box-sizing:border-box;"></td>
+                    <td><input type="text" name="item_{{ i }}" value="{{ items[i].item_name }}" style="width:100%; box-sizing:border-box;"></td>
+                    <td><input type="number" name="amount_{{ i }}" id="amount_{{ i }}" value="{{ items[i].amount }}" style="width:100%; box-sizing:border-box;" data-index="{{ i }}" oninput="calculatePrice(this)"></td>
+                    <td><input type="number" name="quantity_{{ i }}" id="quantity_{{ i }}" value="{{ items[i].quantity }}" style="width:100%; box-sizing:border-box;" data-index="{{ i }}" oninput="calculatePrice(this)"></td>
+                    <td><input type="number" name="price_{{ i }}" id="price_{{ i }}" value="{{ items[i].price }}" readonly style="width:100%; box-sizing:border-box;"></td>
                 </tr>
                 {% endfor %}
             </table><br><br>
-            <label for="amount">Total Amount:</label>
-            <input type="number" id="amount" name="amount" required>
-            <input type="submit" value="Add Invoice">
+            <div id="total_amount">
+                <label for="amount">Total Amount:</label>
+                <input type="number" id="amount" name="amount" value="{{ total_amount }}" readonly style="width: 120px;">
+                <input type="submit" value="Add Invoice">
+                <button id="printButton">Print Invoice</button>
+            </div>
         </form>
     </div>
 </body>
