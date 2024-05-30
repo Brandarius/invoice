@@ -9,7 +9,7 @@ function calculateTotal() {
     var total = 0;
     var rowCount = document.getElementById('invoice_table').rows.length;
     
-    for (var i = 1; i < rowCount; i++) { // Start from 1 to skip the header row
+    for (var i = 1; i < rowCount; i++) {
         var price = parseFloat(document.getElementById('price_' + i).value);
         total += price;
     }

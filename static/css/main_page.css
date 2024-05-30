@@ -47,10 +47,19 @@ body {
     text-align: right;
 }
 @media print {
-    /* Hide the navbar and any buttons */
-    .navbar,
-    button {
+    body {
+        background-color: white;
+    }
+    .navbar, #new_row, #printButton, button[name="add_invoice"], button[name="add_row"] {
         display: none;
+    }
+    .paper {
+        box-shadow: none;
+        margin: 0;
+        padding: 0;
+        border-radius: 0;
+        width: 100%;
+        max-width: none;
     }
 }
 #date_box {
